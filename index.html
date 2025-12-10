@@ -1,5 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <body>
-    <h1>Jack is gay</h1>
-  </body>
+  <meta charset="UTF-8" />
+  <title>PaperBridge – AI-Assisted Autism & IEP Workflow Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="PaperBridge streamlines autism evaluations and IEP workflows for clinicians, parents, and schools using secure, AI-assisted document intelligence." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.12);
+      --accent-secondary: #22c55e;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --card-bg: rgba(15, 23, 42, 0.95);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), transparent);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 20% 0, #38bdf8, #4f46e5 45%, #ec4899 90%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #e5e7eb;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 16px;
+    }
+
+    .brand-tagline {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 6px 0;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-bottom-color: rgba(148, 163, 184, 0.6);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      border-color: rgba(129, 140, 248, 0.7);
+      color: #e5e7eb;
+      box-shadow: 0 12px 30px rgba(79, 70, 229, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(79, 70, 229, 0.75);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(156, 163, 175, 0.9);
+      color: var(--text);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      padding: 40px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    h1 {
+      font-size: clamp(32px, 4vw, 42px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    h1 span.highlight {
+      background: linear-gradient(135deg, #38bdf8, #a855f7, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 22px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .hero-badge {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .hero-footnote {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-footnote strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 20px 18px 18px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at -10% 0, rgba(56, 189, 248, 0.35), transparent 55%),
+                  radial-gradient(circle at 110% 100%, rgba(244, 114, 182, 0.35), transparent 50%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .stage-pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .card-columns {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .timeline {
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 10px 10px 14px;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .timeline-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .bullet {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      margin-top: 4px;
+      background: var(--accent);
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.8), 0 0 10px rgba(129, 140, 248, 0.9);
+    }
+
+    .timeline-text {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .timeline-text strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .stat-card {
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      padding: 10px 12px;
+      display: grid;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stat-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .stat-label span {
+      font-size: 11px;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .stat-tag {
+      font-size: 10px;
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .progress-bar {
+      position: relative;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(30, 64, 175, 0.6);
+      overflow: hidden;
+    }
+
+    .progress-bar span {
+      position: absolute;
+      inset: 0;
+      width: 78%;
+      background: linear-gradient(90deg, #22c55e, #a3e635);
+    }
+
+    .persona-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .persona-tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      padding-top: 8px;
+      gap: 8px;
+    }
+
+    .card-footer span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .pill-small {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+    }
+
+    /* Sections */
+
+    section {
+      padding: 24px 0;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      max-width: 540px;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      font-size: 13px;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .card ul li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 4px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .card ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: rgba(129, 140, 248, 0.9);
+    }
+
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .persona-card {
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 10px 10px 9px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .persona-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    .persona-meta {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.9);
+      margin-bottom: 6px;
+    }
+
+    .cta-panel {
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 50%, rgba(56, 189, 248, 0.22), transparent 50%),
+                  radial-gradient(circle at 100% 50%, rgba(248, 113, 113, 0.2), transparent 45%),
+                  rgba(17, 24, 39, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .cta-panel-text {
+      font-size: 13px;
+    }
+
+    .cta-panel-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+      margin-top: 10px;
+      align-items: flex-start;
+    }
+
+    .contact-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .contact-note strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .contact-list li {
+      margin-bottom: 6px;
+    }
+
+    .contact-list span {
+      color: #e5e7eb;
+    }
+
+    .contact-card {
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px dashed rgba(148, 163, 184, 0.55);
+      padding: 12px 14px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .contact-card h3 {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      padding: 16px 0 6px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .grid-3,
+      .persona-grid,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .cta-panel {
+        border-radius: 20px;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 14px;
+      }
+
+      .hero {
+        padding-top: 26px;
+      }
+
+      .cta-panel {
+        padding: 10px 12px;
+      }
+    }
+  </style>
 </head>
+<body>
+  <div class="page">
+    <header>
+      <div class="shell">
+        <nav class="nav">
+          <div class="brand">
+            <div class="brand-icon">P</div>
+            <div class="brand-text">
+              <div class="brand-name">PaperBridge</div>
+              <div class="brand-tagline">Autism · IEP · AI</div>
+            </div>
+          </div>
+          <div class="nav-links">
+            <a href="#problem">Why PaperBridge</a>
+            <a href="#solution">Platform</a>
+            <a href="#personas">Who It Serves</a>
+            <a href="#contact">Get Involved</a>
+          </div>
+          <div class="nav-cta">
+            <a href="#contact" class="btn btn-ghost">Join early access</a>
+            <a href="#contact" class="btn btn-primary">
+              Request pilot
+              <span>→</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="shell hero-grid">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              AI-assisted autism & IEP workflow
+            </div>
+            <h1>
+              Bridge the gap between
+              <span class="highlight">clinical insight</span>
+              and school IEPs.
+            </h1>
+            <p class="hero-subtitle">
+              PaperBridge ingests reports, assessments, and teacher notes, then helps clinicians and schools
+              turn unstructured paperwork into clear, compliant IEPs aligned to US educational standards—
+              without replacing professional judgment.
+            </p>
+
+            <div class="hero-badges">
+              <div class="hero-badge">Built for autism and related needs</div>
+              <div class="hero-badge">Documents in · IEP drafts out</div>
+              <div class="hero-badge">Clinician-in-the-loop, not “AI-only”</div>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#contact" class="btn btn-primary">
+                Talk about a pilot
+                <span>→</span>
+              </a>
+              <a href="#solution" class="btn btn-ghost">See how it works</a>
+            </div>
+
+            <p class="hero-footnote">
+              <strong>Who it’s for:</strong> autism clinics, child psychologists, school psych teams,
+              and special education departments looking to reduce documentation overhead and tighten
+              collaboration with families.
+            </p>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-inner">
+                <div class="card-header">
+                  <div class="card-title">
+                    IEP Draft – Autism Evaluation
+                    <span class="chip">AI-assisted</span>
+                  </div>
+                  <div class="stage-pill">Clinician review required</div>
+                </div>
+
+                <div class="card-columns">
+                  <div class="timeline">
+                    <div class="timeline-row">
+                      <div class="bullet"></div>
+                      <div class="timeline-text">
+                        <strong>Step 1 · Upload</strong><br />
+                        Intake forms, prior reports, teacher notes, and rating scales are scanned or uploaded.
+                      </div>
+                    </div>
+                    <div class="timeline-row">
+                      <div class="bullet"></div>
+                      <div class="timeline-text">
+                        <strong>Step 2 · Synthesize</strong><br />
+                        PaperBridge maps observations onto ASD criteria and education standards, highlighting
+                        patterns and gaps.
+                      </div>
+                    </div>
+                    <div class="timeline-row">
+                      <div class="bullet"></div>
+                      <div class="timeline-text">
+                        <strong>Step 3 · Draft IEP</strong><br />
+                        Generates proposed Present Levels, goals, and accommodations—ready for clinician edits
+                        and team review.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="stat-card">
+                    <div class="stat-label">
+                      <span>Documentation time saved (pilot target)</span>
+                      <span class="stat-tag">Configurable by clinic</span>
+                    </div>
+                    <div class="stat-value">30–50%</div>
+                    <div class="progress-bar">
+                      <span></span>
+                    </div>
+                    <div class="persona-row">
+                      <div class="persona-tag">Clinician-in-the-loop</div>
+                      <div class="persona-tag">No patient replaces a human</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <span>
+                    Draft output examples: Present Levels, SMART goals, accommodations, parent-friendly summaries.
+                  </span>
+                  <div class="pill-small">PaperBridge · Pilot cohort 2025</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM / VALUE -->
+      <section id="problem">
+        <div class="shell">
+          <div class="section-header">
+            <div class="section-eyebrow">Why this matters</div>
+            <div class="section-title">Autism and IEP workflows are overloaded with paperwork.</div>
+            <div class="section-subtitle">
+              Clinics and schools are drowning in PDFs and forms. Evaluations, progress notes, and IEPs rarely
+              live in one place, and professionals spend hours re-typing the same information into different
+              systems. Families feel that critical insights get lost between clinic visits and school meetings.
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Fragmented information</h3>
+              <p>
+                Data sits in EHRs, shared drives, email attachments, and paper folders. Nobody has a single,
+                structured view of the child’s story.
+              </p>
+              <ul>
+                <li>Clinic report doesn’t map cleanly into IEP fields</li>
+                <li>Teacher observations are siloed in separate documents</li>
+                <li>Parents constantly resend the same files</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Heavy manual work</h3>
+              <p>
+                Highly trained professionals spend a disproportionate amount of time on copy/paste and
+                formatting instead of clinical insight and family support.
+              </p>
+              <ul>
+                <li>Re-entering data into district IEP systems</li>
+                <li>Rewording the same goals for each school template</li>
+                <li>Chasing missing documents before meetings</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Risk of misalignment</h3>
+              <p>
+                When clinical language and school language don’t line up, the IEP may under-represent the child’s
+                actual needs.
+              </p>
+              <ul>
+                <li>Clinical criteria vs. educational eligibility labels</li>
+                <li>Goals not clearly linked to documented needs</li>
+                <li>Parents stuck reconciling two different worlds</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOLUTION / PLATFORM -->
+      <section id="solution">
+        <div class="shell">
+          <div class="section-header">
+            <div class="section-eyebrow">The PaperBridge platform</div>
+            <div class="section-title">AI-assisted document intelligence, grounded in professional judgment.</div>
+            <div class="section-subtitle">
+              PaperBridge is not a “push button, get diagnosis” tool. It is an AI-native assistant that reads
+              unstructured documents, organizes them around ASD criteria and school standards, and helps
+              professionals generate better drafts—faster—while keeping humans firmly in control.
+            </div>
+          </div>
+
+          <div class="pill-row" style="margin-bottom: 10px;">
+            <div class="pill">Document ingestion and normalization</div>
+            <div class="pill">Criteria- and standard-aware analysis</div>
+            <div class="pill">IEP section drafting assistance</div>
+            <div class="pill">Multi-role collaboration (clinic · school · family)</div>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Upload & organize</h3>
+              <p>
+                Drag-and-drop intake packets, clinical notes, and teacher reports. PaperBridge classifies
+                and links them to the child and evaluation.
+              </p>
+              <ul>
+                <li>Scanned PDFs and native documents</li>
+                <li>Automatic detection of key sections and scales</li>
+                <li>Secure, role-based access and audit trail</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Analyze & map</h3>
+              <p>
+                The system helps map observations and findings to autism-related criteria and education
+                frameworks without making final determinations on its own.
+              </p>
+              <ul>
+                <li>Highlights patterns and discrepancies</li>
+                <li>Suggests areas needing more observation</li>
+                <li>Shows traceability from source note → IEP field</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Draft & review</h3>
+              <p>
+                Generate draft Present Levels, goal ideas, and accommodations, then refine them in a
+                structured editor built for clinician and school workflows.
+              </p>
+              <ul>
+                <li>Goal suggestions tied to documented needs</li>
+                <li>Parent-friendly language drafts</li>
+                <li>Export to district IEP systems and PDFs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PERSONAS -->
+      <section id="personas">
+        <div class="shell">
+          <div class="section-header">
+            <div class="section-eyebrow">Who PaperBridge is built for</div>
+            <div class="section-title">Three stakeholders, one shared picture of the child.</div>
+            <div class="section-subtitle">
+              PaperBridge is designed from the beginning to respect clinical workflows, school regulations,
+              and family voice. The same underlying information is surfaced in different views for each role.
+            </div>
+          </div>
+
+          <div class="persona-grid">
+            <div class="persona-card">
+              <div class="persona-title">Clinicians</div>
+              <div class="persona-meta">Psychologists · Autism centers · Neuropsych teams</div>
+              <p>
+                Reduce the time from intake to written report while keeping full control over wording and
+                conclusions.
+              </p>
+              <ul>
+                <li>Structured summaries pulled from your notes</li>
+                <li>Suggested language you can accept or edit</li>
+                <li>Clear separation between clinical findings and school eligibility decisions</li>
+              </ul>
+            </div>
+
+            <div class="persona-card">
+              <div class="persona-title">Schools</div>
+              <div class="persona-meta">Special education · IEP teams · School psychs</div>
+              <p>
+                Turn rich clinical information into IEP-ready content that aligns with district templates
+                and state requirements.
+              </p>
+              <ul>
+                <li>Present Levels and goals linked back to source reports</li>
+                <li>Consistent documentation across teams and campuses</li>
+                <li>Less time hunting through PDFs during meetings</li>
+              </ul>
+            </div>
+
+            <div class="persona-card">
+              <div class="persona-title">Families</div>
+              <div class="persona-meta">Parents · Guardians · Care teams</div>
+              <p>
+                Make the process more transparent, with clear summaries and better continuity between
+                clinic visits and school IEP meetings.
+              </p>
+              <ul>
+                <li>Readable, plain-language explanations of plans</li>
+                <li>Less duplication of paperwork</li>
+                <li>Stronger alignment across everyone supporting the child</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cta-panel">
+            <div class="cta-panel-text">
+              Pilot cohort forming now
+              <span>We’re looking for a small set of clinics and school partners to co-design the first production version of PaperBridge.</span>
+            </div>
+            <div>
+              <a href="#contact" class="btn btn-primary">
+                Explore a joint pilot
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT / EARLY ACCESS -->
+      <section id="contact">
+        <div class="shell">
+          <div class="section-header">
+            <div class="section-eyebrow">Get involved</div>
+            <div class="section-title">Interested in piloting PaperBridge or learning more?</div>
+            <div class="section-subtitle">
+              Share a bit about your clinic, district, or team and the current pain points in your autism
+              evaluation and IEP documentation workflow. We’ll follow up about a short discovery call and
+              pilot options.
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <div>
+              <p class="contact-note">
+                <strong>For pilots:</strong> we’re prioritizing US-based autism clinics and school systems
+                with established evaluation workflows and a clear need to reduce documentation overhead while
+                improving quality and consistency.
+              </p>
+              <ul class="contact-list">
+                <li><span>Share context:</span> size of your team, number of evaluations or IEPs per year.</li>
+                <li><span>Current tooling:</span> EHR / practice management, IEP platform, document tools.</li>
+                <li><span>Top 2–3 pain points:</span> where time and quality are being lost today.</li>
+              </ul>
+            </div>
+
+            <div class="contact-card">
+              <h3>Contact & next steps</h3>
+              <p>
+                Replace this block with your actual contact form or integration (e.g., HubSpot, Typeform,
+                custom API). For now, you can use simple mailto links or embed a form handler.
+              </p>
+              <ul>
+                <li>
+                  Email:
+                  <a href="mailto:hello@paperbridge.ai">hello@paperbridge.ai</a>
+                </li>
+                <li>
+                  Pilot inquiry:
+                  <a href="mailto:pilots@paperbridge.ai?subject=PaperBridge%20Pilot%20Interest">
+                    pilots@paperbridge.ai
+                  </a>
+                </li>
+                <li>Subject line suggestion: “PaperBridge pilot – [Clinic / District name]”</li>
+              </ul>
+              <p style="margin-top: 8px;">
+                Prefer a short intro call instead? Add a “Book time” button here wired to your calendar
+                system (Calendly, Cal.com, etc.).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <div>© <span id="year"></span> PaperBridge. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="#problem">Overview</a>
+          <a href="#solution">Platform</a>
+          <a href="#contact">Pilots</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth scrolling for same-page anchors
+    document.addEventListener("click", function (e) {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      const targetId = link.getAttribute("href").slice(1);
+      if (!targetId) return;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - 72,
+        behavior: "smooth"
+      });
+    });
+  </script>
+</body>
+</html>
